@@ -8,13 +8,22 @@ CORS(app)
 # Function to get Plex server status (Windows)
 def get_plex_server_status():
     try:
-        # Check if Plex Media Server is running by using tasklist on Windows
-        plex_status = subprocess.run(['tasklist', '/FI', 'IMAGENAME eq Plex Media Server.exe'], capture_output=True, text=True)
+        system_os = platform.system()  # Detect OS
+
+        if system_os == "Windows":
+            # Windows: Use 'tasklist' to check for running processes
+            plex_status = subprocess.run(['tasklist', '/FI', 'IMAGENAME eq Plex Media Server.exe'], capture_output=True, text=True)
+            if 'Plex Media Server.exe' in plex_status.stdout:
+                return "Plex server is running", "bg-green-500"
         
-        if 'Plex Media Server.exe' in plex_status.stdout:
-            return "Plex server is running", "bg-green-500"
-        else:
-            return "Plex server is not running", "bg-red-500"
+        elif system_os == "Linux":
+            # Linux: Use 'pgrep' to check if Plex is running
+            plex_status = subprocess.run(['pgrep', '-f', 'Plex Media Server'], capture_output=True, text=True)
+            if plex_status.stdout.strip():
+                return "Plex server is running", "bg-green-500"
+
+        return "Plex server is not running", "bg-red-500"
+    
     except Exception as e:
         return f"Error checking status: {str(e)}", "bg-gray-500"
 
