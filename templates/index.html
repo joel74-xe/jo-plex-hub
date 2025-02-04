@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plex Server Status</title>
+    <!-- Link to Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animation for background color change */
+        .status-animation {
+            transition: background-color 1s ease;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-indigo-950 to-purple-500 font-sans antialiased flex justify-center items-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-96">
+        <h1 class="text-2xl font-semibold text-center mb-4">Joel's Server Status</h1>
+        <div class="text-center">
+            <p class="text-lg font-medium text-gray-700">Status: </p>
+            <div class="status-animation text-xl font-bold mt-2 py-3 px-6 rounded-full {{ status_class }}">
+                {{ status }}
+            </div>
+        </div>
+        <!-- Add refresh button to reload the page -->
+        <div class="mt-6 text-center">
+            <a href="/" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200">Refresh Status</a>
+        </div>
+    </div>
+
+</body>
+</html>
