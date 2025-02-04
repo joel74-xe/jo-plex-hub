@@ -1,9 +1,9 @@
 from flask import Flask, render_template
 from flask_cors import CORS
-CORS(app)
 import subprocess
 
 app = Flask(__name__)
+CORS(app)
 
 # Function to get Plex server status (Windows)
 def get_plex_server_status():
